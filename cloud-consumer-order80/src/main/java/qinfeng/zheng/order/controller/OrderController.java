@@ -11,7 +11,9 @@ import qinfeng.zheng.common.entry.Payment;
 @RestController
 public class OrderController {
 
-    public static final String PAYMENT_URL = "http://127.0.0.1:8001";
+//    public static final String PAYMENT_URL = "http://127.0.0.1:8001";
+//    使用集群的地址
+    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
     @Autowired
     private RestTemplate restTemplate;
 
