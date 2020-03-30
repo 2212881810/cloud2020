@@ -4,5 +4,9 @@ spring:
   application:
     name: cloud-provider-payment
   cloud:
+#    inetutils:
+#      default-hostname: localhost
     zookeeper:
       connect-string: 120.79.41.56:2181
+#      discovery:
+#        instance-host: ${spring.cloud.inetutils.default-hostname}

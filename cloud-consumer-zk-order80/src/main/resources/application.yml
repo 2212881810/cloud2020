@@ -1,9 +1,10 @@
 server:
-  port: 8004
+  port: 80
 spring:
   application:
-    name: cloud-provider-payment
+    name: cloud-consumer-order
   cloud:
+  # zk默认使用是主机名称作为注册地址,如果主机名称解析错误,可以配置ip
 #    inetutils:
 #      default-hostname: localhost
     zookeeper:
