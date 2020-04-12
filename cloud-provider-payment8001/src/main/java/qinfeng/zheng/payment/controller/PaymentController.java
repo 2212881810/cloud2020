@@ -1,6 +1,5 @@
 package qinfeng.zheng.payment.controller;
 
-import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +28,7 @@ public class PaymentController {
     public CommonResult findById(@PathVariable Integer id) {
         log.info(serverPort);
         Optional optional = paymentService.findById(id);
-        CommonResult commonResult = new CommonResult(200, "查询成功", optional);
+        CommonResult commonResult = new CommonResult(200, "查询成功", serverPort,optional);
         return commonResult;
     }
 
@@ -37,7 +36,7 @@ public class PaymentController {
     public CommonResult create(@RequestBody Payment payment) {
         log.info(serverPort);
         payment = paymentService.create(payment);
-        CommonResult commonResult = new CommonResult(200, "新增成功", payment);
+        CommonResult commonResult = new CommonResult(200, "新增成功",serverPort, payment);
         return commonResult;
     }
 

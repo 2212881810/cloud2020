@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 public class CommonResult<T> {
     private Integer code;
     private String message;
+    private String port;
     private T data;
 
-    public CommonResult(Integer code, String message) {
-        this(code, message, null);
+    public CommonResult(Integer code, String message, String port) {
+        this(code, message, port, null);
     }
 }

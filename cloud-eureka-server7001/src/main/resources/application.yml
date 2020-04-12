@@ -10,10 +10,10 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
-  server:
-    enable-self-preservation: false #禁用eureka的自我保扩功能(PA模式).
-    #2秒中不发心跳,就中踢出服务
-    eviction-interval-timer-in-ms: 2000
+#  server:
+#    enable-self-preservation: false #禁用eureka的自我保扩功能(PA模式).
+#    #2秒中不发心跳,就中踢出服务
+#    eviction-interval-timer-in-ms: 2000
 
 
 
