@@ -12,6 +12,7 @@ import qinfeng.zheng.payment.service.IPaymentService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -28,7 +29,7 @@ public class PaymentController {
     public CommonResult findById(@PathVariable Integer id) {
         log.info(serverPort);
         Optional optional = paymentService.findById(id);
-        CommonResult commonResult = new CommonResult(200, "查询成功", serverPort,optional);
+        CommonResult commonResult = new CommonResult(200, "查询成功", serverPort, optional);
         return commonResult;
     }
 
@@ -36,7 +37,7 @@ public class PaymentController {
     public CommonResult create(@RequestBody Payment payment) {
         log.info(serverPort);
         payment = paymentService.create(payment);
-        CommonResult commonResult = new CommonResult(200, "新增成功",serverPort, payment);
+        CommonResult commonResult = new CommonResult(200, "新增成功", serverPort, payment);
         return commonResult;
     }
 
@@ -56,5 +57,21 @@ public class PaymentController {
             log.info("InstanceId: {} , host:{} , port:{}, uri:{}", instance.getInstanceId(), instance.getHost(), instance.getPort(), instance.getUri());
         }
         return discoveryClient;
+    }
+
+
+    /**
+     * 暴露接口,用于测试openfeign调用超时
+     *
+     * @return
+     */
+    @GetMapping("/feign/timeout")
+    public String testFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
     }
 }

@@ -9,6 +9,7 @@ import qinfeng.zheng.common.entry.CommonResult;
 import qinfeng.zheng.common.entry.Payment;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -34,5 +35,20 @@ public class PaymentController {
         payment = paymentService.create(payment);
         CommonResult commonResult = new CommonResult(200, "新增成功", serverPort,payment);
         return commonResult;
+    }
+
+    /**
+     * 暴露接口,用于测试openfeign调用超时
+     *
+     * @return
+     */
+    @GetMapping("/feign/timeout")
+    public String testFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
     }
 }
