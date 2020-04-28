@@ -31,3 +31,42 @@ git服务器上中,配置文件名格式如下:
 /{label}/{application}-{profile}.properties
 ```
 
+现gigthub上有配置文件:config-dev.yml
+
+config server启动之后,浏览访问http://127.0.0.1:3344/master/config-dev.yml成功.说明config server自测通过
+
+config-client-3355 启动之后,就可以由本地配置中心获取配置文件的信息. 浏览器发送请求:http://127.0.0.1:3355/getMsg
+
+如果github上的config-dev.yml配置内容发生变化, config-server可以立马感知到变化,
+但是config-client-3355不能,即便是添加以下两个配置
+```
+
+# 暴露的端口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+```
+
+```$xslt
+@RefreshScope  // 刷新注解
+@RestController
+public class ConfigClientController {
+
+    @Value("${config.info}")
+    private String msg;
+
+    @GetMapping("/getMsg")
+    public String getMsg() {
+        return msg;
+    }
+}
+
+```
+
+解决方案,需要手动调用config-client-3355 刷新接口
+```$xslt
+curl -X POST http://127.0.0.1:3355/actuator/refresh
+```
+
